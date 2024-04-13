@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tax Calculator</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div
+      class="vh-100 d-flex justify-content-center align-items-center position-relative"
+    >
+      <div
+        class="container border border-2 px-4 pt-5 pb-4 d-flex flex-column z-0"
+      >
+        <label class="mb-1 fw-bold" for="gross-income"
+          >Enter gross annual income
+          <span
+            class="description border border-2 border-secondary-subtle rounded-circle text-body-tertiary"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="Gross annual income is your total salary in a year before any deductions"
+            >?</span
+          ></label
+        >
+        <div class="position-relative mb-3">
+          <input
+            id="gross-income"
+            type="text"
+            placeholder="Enter gross annual income"
+            autocomplete="off"
+            class="input-tag w-100 rounded-1 border border-3 border-secondary-subtle px-2 py-1"
+          />
+          <span
+            class="error-icon border border-2 border-secondary-subtle rounded-circle position-absolute fw-bold text-body-tertiary invisible"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            >!</span
+          >
+        </div>
+
+        <label class="mb-1 fw-bold" for="extra-income"
+          >Enter extra income
+          <span
+            class="description border border-2 border-secondary-subtle text-body-tertiary rounded-circle"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="This top tooltip is themed via CSS variables."
+            >?</span
+          ></label
+        >
+        <div class="position-relative mb-3">
+          <input
+            id="extra-income"
+            type="text"
+            placeholder="Enter extra income from other sources"
+            autocomplete="off"
+            class="input-tag w-100 rounded-1 border border-3 border-secondary-subtle px-2 py-1"
+          />
+          <span
+            class="text-body-tertiary error-icon border border-2 border-secondary-subtle rounded-circle fw-bold position-absolute invisible"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            >!</span
+          >
+        </div>
+
+        <label class="mb-1 fw-bold" for="age-group"
+          >Enter age group
+          <span
+            class="description border border-2 border-secondary-subtle rounded-circle text-body-tertiary"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="This top tooltip is themed via CSS variables."
+            >?</span
+          ></label
+        >
+        <div class="position-relative mb-3">
+          <select
+            id="age-group"
+            class="input-tag w-100 form-select rounded-1 border border-3 border-secondary-subtle px-2 py-1"
+          >
+            <option value="" selected disabled class="text-secondary-emphasis">
+              -- Select the age group --
+            </option>
+            <option value="30">Age &lt; 40</option>
+            <option value="40">Age &geq; 40 & &lt; 60</option>
+            <option value="10">Age &geq; 60</option>
+          </select>
+          <span
+            class="error-icon border border-2 border-secondary-subtle rounded-circle position-absolute text-body-tertiary fw-bold invisible"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            >!</span
+          >
+        </div>
+
+        <label class="mb-1 fw-bold" for="deduction"
+          >Enter total applicable deductions
+          <span
+            class="description border border-2 border-secondary-subtle rounded-circle text-body-tertiary"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            data-bs-title="This top tooltip is themed via CSS variables."
+            >?</span
+          ></label
+        >
+        <div class="input-container position-relative mb-5">
+          <input
+            id="deduction"
+            type="text"
+            placeholder="Add total applicable deductions"
+            autocomplete="off"
+            class="input-tag w-100 rounded-1 border border-3 border-secondary-subtle px-2 py-1"
+          />
+          <span
+            class="error-icon border border-2 border-secondary-subtle rounded-circle text-body-tertiary fw-bold position-absolute invisible"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            data-bs-custom-class="custom-tooltip"
+            >!</span
+          >
+        </div>
+
+        <button
+          class="border border-0 py-2 rounded fw-bold fs-5"
+          onclick="taxCalculate()"
+        >
+          Submit
+        </button>
+      </div>
+
+      <div class="z-1 invisible" id="blur"></div>
+
+      <div
+        class="position-absolute d-flex flex-column align-items-center border border-2 rounded-2 amount-box p-2 p-sm-5 bg-white invisible z-2"
+        id="result-box"
+      >
+        <div
+          class="h-100 d-flex flex-column justify-content-around align-items-center pt-5 pb-4"
+          id="result-msg"
+        ></div>
+        <button
+          class="w-25 border border-0 py-2 rounded fw-bold fs-6 mb-4"
+          id="closeBtn"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./main.js"></script>
+  </body>
+</html>

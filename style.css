@@ -1,0 +1,64 @@
+.custom-tooltip {
+  --bs-tooltip-bg: hsl(206, 17%, 36%);
+  --bs-tooltip-color: white;
+}
+
+.container {
+  max-width: 480px;
+}
+
+#blur {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: hsla(0, 0%, 0%, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+#result-box {
+  width: 100%;
+  max-width: 480px;
+}
+
+.error-icon {
+  font-size: 10px;
+  padding: 0 6px;
+  top: 50%;
+  right: 10px;
+  transform: translate(0%, -50%);
+  background: white;
+}
+
+.description {
+  font-size: 12px;
+  padding: 0 5.5px;
+}
+
+button {
+  background: hsl(244, 89%, 65%);
+  color: white;
+}
+
+::placeholder {
+  color: #c6cfd8;
+}
+
+@media only screen and (max-width: 480px) {
+  .container {
+    max-width: 350px;
+  }
+
+  #result-box {
+    max-width: 320px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    max-width: 550px;
+  }
+
+  #result-box {
+    max-width: 600px;
+  }
+}
